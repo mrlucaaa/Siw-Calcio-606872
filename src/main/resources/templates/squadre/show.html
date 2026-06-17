@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Dettagli Squadra</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <div th:if="${squadra}" style="max-width: 800px; margin: 40px auto; text-align: center;">
+        
+        <h1 th:text="${squadra.nome}" style="color: #007bff;">Nome Squadra</h1>
+        
+        <div sec:authorize="hasRole('ADMIN')" style="margin-bottom: 20px;">
+            <a th:href="@{'/squadre/edit/' + ${squadra.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-weight: bold;">✏️ Modifica Squadra</a>
+        </div>
+
+        <div style="font-size: 1.1em; color: #555;">
+            <div style="margin-bottom: 8px;"><strong>Città:</strong> <span th:text="${squadra.città}">Roma</span></div>
+            <div style="margin-bottom: 8px;"><strong>Anno di Fondazione:</strong> <span th:text="${squadra.annoDiFondazione}">1927</span></div>
+        </div>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 30px 0;">
+
+        <div style="display: flex; gap: 40px; justify-content: center; text-align: left;">
+            
+            <div style="flex: 1; min-width: 300px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                <h2 style="margin-top: 0; text-align: center;">Rosa della Squadra</h2>
+                
+                <div th:if="${squadra.giocatori == null || squadra.giocatori.isEmpty()}" style="color: #666; font-style: italic; text-align: center;">
+                    <p>Non ci sono ancora giocatori registrati in questa squadra.</p>
+                </div>
+                
+                <ul th:unless="${squadra.giocatori == null || squadra.giocatori.isEmpty()}" style="padding: 0; list-style-type: none; line-height: 1.8;">
+                    <li th:each="g : ${squadra.giocatori}" style="border-bottom: 1px solid #e0e0e0; padding: 5px 0;">
+                        <strong th:text="${g.nome + ' ' + g.cognome}">Nome Cognome</strong> - 
+                        <span th:text="${g.ruolo}" style="color: #666; font-size: 0.9em; float: right;">Ruolo</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="flex: 1; min-width: 300px; background-color: #f0f8ff; padding: 20px; border-radius: 8px; border: 1px solid #bce8f1;">
+                <h2 style="margin-top: 0; text-align: center; color: #31708f;">Rendimento Totale</h2>
+                
+                <div style="text-align: center; font-size: 1.2em; line-height: 2;">
+                    <div><strong>Gol Fatti ⚽ :</strong> <span th:text="${totaleGolFatti != null ? totaleGolFatti : 0}" style="color: #28a745; font-weight: bold; font-size: 1.5em;">0</span></div>
+                    <div><strong>Gol Subiti 🥅 :</strong> <span th:text="${totaleGolSubiti != null ? totaleGolSubiti : 0}" style="color: #dc3545; font-weight: bold; font-size: 1.5em;">0</span></div>
+                    
+                    <hr style="border-top: 1px dotted #ccc; margin: 15px 0;">
+                    
+                    <h4 style="margin-bottom: 10px;">Partite Giocate:</h4>
+                    <ul th:if="${partite != null && !partite.isEmpty()}" style="padding: 0; list-style-type: none; font-size: 0.9em;">
+                        <li th:each="p : ${partite}" style="margin-bottom: 5px;">
+                            <a th:href="@{'/partite/' + ${p.id}}" style="text-decoration: none; color: #007bff;">
+                                <span th:text="${p.squadraCasa.nome}">Casa</span> <span th:text="${p.goalsHome}">0</span> - <span th:text="${p.goalsAway}">0</span> <span th:text="${p.squadraTrasferta.nome}">Trasferta</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div th:if="${partite == null || partite.isEmpty()}" style="font-size: 0.8em; color: #666;">
+                        Nessuna partita giocata.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div th:unless="${squadra}" style="text-align: center; margin-top: 20px; color: red; font-weight: bold;">
+        Squadra non trovata!
+    </div>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+/* =========================================
+   FOGLIO DI STILE PRINCIPALE - SIW CALCIO
+   ========================================= */
+
+/* 1. Impostazioni Generali del sito */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333; /* Grigio scuro per il testo, più leggibile del nero puro */
+  margin: 0; /* Rimuove i fastidiosi margini bianchi laterali di default */
+  background-color: #f4f7f6; /* Uno sfondo grigio chiarissimo molto elegante */
+}
+
+/* 2. Stile per i Titoli principali e secondari */
+h1 {
+  color: #007bff; /* Un bel blu sportivo per il titolo principale */
+  text-align: center; /* Centra il titolo nella pagina */
+  margin-top: 20px;
+}
+
+h2 {
+  color: #555;
+  border-bottom: 2px solid #007bff; /* Crea una linea decorativa sotto il titolo */
+  padding-bottom: 10px;
+  width: 80%;
+  margin: 0 auto; /* Centra il blocco del titolo */
+}
+
+/* 3. Stile per l'Header (Intestazione) e il Footer (Piè di pagina) */
+header, footer {
+  background-color: #ffffff; /* Sfondo bianco per staccare dallo sfondo grigio */
+  padding: 15px;
+  text-align: center;
+}
+
+header {
+  border-bottom: 1px solid #ccc; /* Righina grigia sotto l'header */
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Una leggerissima ombra 3D sotto il menu */
+}
+
+footer {
+  border-top: 1px solid #ccc; /* Righina grigia sopra il footer */
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* 4. Stile per i Link del Menu di Navigazione */
+nav a {
+  color: #007bff;
+  text-decoration: none; /* Rimuove la brutta sottolineatura blu di default */
+  font-weight: bold;
+  margin: 0 10px; /* Crea spazio tra un link e l'altro */
+  padding: 5px 10px;
+  border-radius: 5px; /* Arrotonda leggermente i bordi (si vedrà al passaggio del mouse) */
+  transition: background-color 0.3s; /* Fa un effetto sfumato carino quando ci passi sopra */
+}
+
+/* Effetto al passaggio del mouse sui link del menu */
+nav a:hover {
+  background-color: #007bff; /* Lo sfondo diventa blu */
+  color: white; /* Il testo diventa bianco */
+}

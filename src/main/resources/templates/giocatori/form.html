@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aggiungi Giocatore</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <h1>Aggiungi un nuovo Giocatore</h1>
+    <form th:action="@{/giocatori}" method="POST" th:object="${giocatore}" style="width: 50%; margin: 0 auto; text-align: left;">
+		<input type="hidden" th:field="*{id}" />
+        <div style="margin-bottom: 15px;">
+            <label>Nome:</label><br>
+            <input required type="text" th:field="*{nome}" style="width: 100%; padding: 8px;"/>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Cognome:</label><br>
+            <input required type="text" th:field="*{cognome}" style="width: 100%; padding: 8px;"/>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Data di Nascita:</label><br>
+            <input required type="date" th:field="*{dataDiNascita}" style="width: 100%; padding: 8px;"/>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Ruolo:</label><br>
+            <input required type="text" th:field="*{ruolo}" style="width: 100%; padding: 8px;"/>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Squadra di Appartenenza:</label><br>
+            <select required th:field="*{squadra}" style="width: 100%; padding: 8px;">
+                <option value="" disabled selected>Seleziona una squadra...</option>
+                <option th:each="s : ${squadre}" th:value="${s.id}" th:text="${s.nome}"></option>
+            </select>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Salva Giocatore</button>
+        </div>
+    </form>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Modifica Commento</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <div style="max-width: 500px; margin: 40px auto; text-align: center;">
+        <h2>Modifica il tuo commento</h2>
+        
+        <form th:action="@{'/commenti/edit/' + ${commento.id}}" method="POST">
+            <textarea name="testo" rows="4" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px;" required th:text="${commento.testo}"></textarea>
+            <br>
+            <button type="submit" style="padding: 10px 20px; background-color: #ffc107; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Aggiorna Commento</button>
+            <a th:href="@{'/partite/' + ${commento.partita.id}}" style="margin-left: 10px; text-decoration: none; color: #666;">Annulla</a>
+        </form>
+    </div>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

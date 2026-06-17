@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aggiungi Nuova Squadra</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <h1>Aggiungi una nuova Squadra</h1>
+    
+    <form th:action="@{/squadre}" method="POST" th:object="${squadra}" style="width: 50%; margin: 0 auto; text-align: left;">
+		<input type="hidden" th:field="*{id}" />
+        <div style="margin-bottom: 15px;">
+            <label>Nome della Squadra:</label><br>
+            <input required type="text" th:field="${squadra.nome}" style="width: 100%; padding: 8px;"/>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Città:</label><br>
+            <input required type="text" th:field="${squadra.città}" style="width: 100%; padding: 8px;"/>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Anno di Fondazione:</label><br>
+            <input required type="number" th:field="${squadra.annoDiFondazione}" style="width: 100%; padding: 8px;"/>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                Salva Squadra
+            </button>
+        </div>
+    </form>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

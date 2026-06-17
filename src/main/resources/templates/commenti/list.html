@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Elenco Commenti</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <h1>Tutti i Commenti</h1>
+	
+    <div th:if="${commenti.isEmpty()}">Non ci sono commenti nel sistema</div>
+    
+    <ul style="list-style-type: none; padding: 0; max-width: 800px; margin: 0 auto;">
+        <li th:each="commento : ${commenti}" style="padding: 12px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong th:text="${commento.autore?.username}">Autore</strong>: 
+                <span th:text="${commento.testo}">Testo</span>
+            </div>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/commenti/delete/' + ${commento.id}}" onclick="return confirm('Sei sicuro di voler eliminare questo commento?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
+                    🗑️ Elimina
+                </a>
+            </div>
+        </li>
+    </ul>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

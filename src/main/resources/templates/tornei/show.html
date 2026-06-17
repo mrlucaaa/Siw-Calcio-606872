@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dettagli Torneo</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <div th:if="${torneo}" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        
+        <h1 th:text="${torneo.nome}">Nome Torneo</h1>
+        <div style="margin-bottom: 8px;"><strong>Anno:</strong> <span th:text="${torneo.anno}">2024</span></div>
+        <div style="margin-bottom: 8px;"><strong>Descrizione:</strong> <span th:text="${torneo.descrizione}">Descrizione...</span></div>
+        
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 30px 0;">
+
+        <h2>Classifica del Torneo</h2>
+
+        <table style="width: 100%; border-collapse: collapse; text-align: center; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #007bff; color: white;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Pos</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Squadra</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Punti</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Giocate</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Reti Fatte</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Reti Subite</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Diff. Reti</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="riga, iterStat : ${classifica}" th:style="${iterStat.odd} ? 'background-color: #f2f2f2;' : 'background-color: white;'">
+                    <td th:text="${iterStat.count}" style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">1</td>
+                    <td>
+                        <a th:href="@{'/squadre/' + ${riga.squadra.id}}" th:text="${riga.squadra.nome}" style="text-decoration: none; color: #007bff; font-weight: bold;">Squadra</a>
+                    </td>
+                    <td th:text="${riga.punti}" style="padding: 10px; border: 1px solid #ddd; font-weight: bold; color: #d9534f; font-size: 1.1em;">3</td>
+                    <td th:text="${riga.partiteGiocate}" style="padding: 10px; border: 1px solid #ddd;">1</td>
+                    <td th:text="${riga.retiFatte}" style="padding: 10px; border: 1px solid #ddd;">2</td>
+                    <td th:text="${riga.retiSubite}" style="padding: 10px; border: 1px solid #ddd;">0</td>
+                    <td th:text="${riga.retiFatte - riga.retiSubite}" style="padding: 10px; border: 1px solid #ddd;">+2</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${#lists.isEmpty(classifica)}" style="margin-top: 15px; color: #666; font-style: italic;">
+            Nessuna squadra iscritta o nessuna partita giocata.
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 30px 0;">
+
+        <h2>Calendario Partite</h2>
+        <ul th:if="${!#lists.isEmpty(torneo.partite)}" style="list-style-type: none; padding: 0;">
+            <li th:each="partita : ${torneo.partite}" style="padding: 10px; border-bottom: 1px solid #eee; text-align: left;">
+                <a th:href="@{'/partite/' + ${partita.id}}" th:text="${partita.squadraCasa?.nome + ' vs ' + partita.squadraTrasferta?.nome}" style="text-decoration: none; color: #007bff; font-weight: bold;">Partita</a> 
+                <span style="margin-left: 10px; font-size: 0.9em;">
+                    (Risultato: <span th:text="${partita.goalsHome != null ? partita.goalsHome : '-'}">0</span> - <span th:text="${partita.goalsAway != null ? partita.goalsAway : '-'}">0</span>)
+                </span>
+                <span th:text="' - ' + ${partita.stato}" style="color: gray; font-size: 0.85em; font-style: italic;">Stato</span>
+            </li>
+        </ul>
+        <div th:if="${#lists.isEmpty(torneo.partite)}" style="color: #666; font-style: italic;">Nessuna partita in programma.</div>
+
+        <hr style="border: 0; border-top: 1px solid #ccc; margin: 30px 0;">
+
+		<h2>Squadre Iscritte</h2>
+		        <ul th:if="${!#lists.isEmpty(classifica)}" style="list-style-type: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+		            <li th:each="riga : ${classifica}" style="background-color: #f8f9fa; padding: 10px 20px; border: 1px solid #ddd; border-radius: 5px;">
+		                <a th:href="@{'/squadre/' + ${riga.squadra.id}}" th:text="${riga.squadra.nome}" style="text-decoration: none; color: #333; font-weight: bold;">Nome Squadra</a>
+		            </li>
+		        </ul>
+		        <div th:if="${#lists.isEmpty(classifica)}" style="color: #666; font-style: italic;">Nessuna squadra iscritta al torneo.</div>
+
+    </div>
+    
+    <div th:unless="${torneo}" style="text-align: center; margin-top: 20px; color: red; font-weight: bold;">
+        Torneo non trovato!
+    </div>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

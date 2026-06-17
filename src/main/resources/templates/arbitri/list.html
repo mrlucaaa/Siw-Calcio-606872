@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Elenco Arbitri</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <h1>Tutti gli Arbitri</h1>
+	
+	<div sec:authorize="hasRole('ADMIN')" style="text-align: center; margin-bottom: 20px;">
+	    <a th:href="@{/arbitri/new}" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+	        + Aggiungi Nuovo Arbitro
+	    </a>
+	</div>
+    <div th:if="${arbitri.isEmpty()}">Non ci sono arbitri nel sistema</div>
+    
+    <ul style="list-style-type: none; padding: 0; max-width: 600px; margin: 0 auto;">
+        <li th:each="arbitro : ${arbitri}" style="padding: 12px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <a th:href="@{'/arbitri/' + ${arbitro.id}}" th:text="${arbitro.nome + ' ' + arbitro.cognome}" style="font-weight: bold; text-decoration: none; font-size: 1.1em;">Nome Cognome</a>
+            </div>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/arbitri/edit/' + ${arbitro.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold; margin-right: 5px;">
+                    ✏️ Modifica
+                </a>
+                <a th:href="@{'/arbitri/delete/' + ${arbitro.id}}" onclick="return confirm('Sei sicuro di voler eliminare questo arbitro?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
+                    🗑️ Elimina
+                </a>
+            </div>
+        </li>
+    </ul>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

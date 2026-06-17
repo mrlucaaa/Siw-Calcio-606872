@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrati - SIW Calcio</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <div style="max-width: 400px; margin: 50px auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; border: 1px solid #ddd;">
+        <h2 style="text-align: center; margin-bottom: 20px;">Crea un Account</h2>
+        
+        <form th:action="@{/register}" th:object="${utente}" method="post">
+            <div style="margin-bottom: 15px;">
+                <label for="username" style="display: block; font-weight: bold; margin-bottom: 5px;">Username</label>
+                <input type="text" id="username" th:field="*{username}" required autofocus style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box;" />
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Password</label>
+                <input type="password" id="password" th:field="*{password}" required style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box;" />
+            </div>
+            
+            <button type="submit" style="width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1.1em;">
+                Registrati
+            </button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a th:href="@{/login}" style="color: #007bff; text-decoration: none;">Torna al Login</a>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

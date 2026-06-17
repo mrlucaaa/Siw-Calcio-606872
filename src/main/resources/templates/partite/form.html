@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aggiungi o Modifica Partita</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <h1>Gestione Partita</h1>
+    <form th:action="@{/partite}" method="POST" th:object="${partita}" style="width: 50%; margin: 0 auto; text-align: left;">
+        
+        <input type="hidden" th:field="*{id}" />
+        
+        <div style="margin-bottom: 15px;">
+            <label>Data e Ora:</label><br>
+            <input required type="datetime-local" th:field="*{dataOra}" style="width: 100%; padding: 8px;"/>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Luogo:</label><br>
+            <input required type="text" th:field="*{luogo}" style="width: 100%; padding: 8px;"/>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Seleziona il Torneo:</label>
+            <select th:field="*{torneo}" style="width: 100%; padding: 8px; border-radius: 4px;" required>
+                <option value="">-- Scegli un torneo --</option>
+                <option th:each="t : ${tornei}" th:value="${t.id}" th:text="${t.nome}"></option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Squadra Casa:</label><br>
+            <select required th:field="*{squadraCasa}" style="width: 100%; padding: 8px;">
+                <option value="" disabled selected>Seleziona una squadra...</option>
+                <option th:each="squadra : ${squadre}" th:value="${squadra.id}" th:text="${squadra.nome}"></option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label>Squadra Trasferta:</label><br>
+            <select required th:field="*{squadraTrasferta}" style="width: 100%; padding: 8px;">
+                <option value="" disabled selected>Seleziona una squadra...</option>
+                <option th:each="squadra : ${squadre}" th:value="${squadra.id}" th:text="${squadra.nome}"></option>
+            </select>
+        </div>
+        
+        <div style="margin-bottom: 15px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9;">
+            <h3 style="margin-top: 0; color: #333;">Risultato e Stato</h3>
+            
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label>Gol Squadra Casa:</label><br>
+                    <input type="number" th:field="*{goalsHome}" min="0" style="width: 100%; padding: 8px;"/>
+                </div>
+                <div style="flex: 1;">
+                    <label>Gol Squadra Trasferta:</label><br>
+                    <input type="number" th:field="*{goalsAway}" min="0" style="width: 100%; padding: 8px;"/>
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px;">
+                <label>Stato della Partita:</label><br>
+                <select th:field="*{stato}" style="width: 100%; padding: 8px;">
+                    <option value="DAGIOCARE">Da Giocare</option>
+                    <option value="INCORSO">In Corso</option>
+                    <option value="GIOCATA">Giocata / Terminata</option>
+                    <option value="CANCELLATA">Cancellata</option>
+                </select>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Salva Partita</button>
+        </div>
+    </form>
+    
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

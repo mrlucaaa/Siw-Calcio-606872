@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Ricerca Live Giocatori</title>
+	<div th:replace="~{fragments :: header-css}"></div>
+
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+	<div th:replace="~{fragments :: header}"></div>
+
+	<div style="max-width: 800px; margin: 40px auto; text-align: center;">
+		<h1>Ricerca Giocatori Live ⚡</h1>
+		<p style="color: #666;">Questo componente è renderizzato interamente in React!</p>
+
+		<div id="root-react"></div>
+	</div>
+
+	<script type="text/babel">
+		/*<![CDATA[*/
+		const { useState, useEffect } = React;
+
+		function AppRicerca() {
+			const [giocatori, setGiocatori] = useState([]);
+			const [testoRicerca, setTestoRicerca] = useState("");
+			const [errore, setErrore] = useState(null); // Ci avvisa se qualcosa si rompe
+			const [caricamento, setCaricamento] = useState(true);
+
+			useEffect(() => {
+				fetch('/api/giocatori')
+					.then(response => {
+						// Controlliamo se Spring Boot ci ha bloccato!
+						if (!response.ok) {
+							throw new Error("Errore dal server: " + response.status);
+						}
+						// Controlliamo se la risposta è vero JSON
+						const contentType = response.headers.get("content-type");
+						if (contentType && contentType.indexOf("application/json") !== -1) {
+							return response.json();
+						} else {
+							throw new Error("Spring Security ha bloccato l'API (ha restituito HTML invece di JSON).");
+						}
+					})
+					.then(data => {
+						setGiocatori(data);
+						setCaricamento(false);
+					})
+					.catch(error => {
+						console.error("Dettaglio Errore:", error);
+						setErrore(error.message);
+						setCaricamento(false);
+					});
+			}, []);
+
+			// FILTRO A PROVA DI CRASH (Gestisce i valori nulli dal database)
+			const giocatoriFiltrati = (!testoRicerca || testoRicerca.trim() === "") ? [] : giocatori.filter(g => {
+				const nomeStr = g.nome ? g.nome.toLowerCase() : "";
+				const cognomeStr = g.cognome ? g.cognome.toLowerCase() : "";
+				const nomeCompleto = nomeStr + " " + cognomeStr;
+				return nomeCompleto.includes(testoRicerca.toLowerCase());
+			});
+
+			return (
+				<div style={{ textAlign: 'left', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', border: '1px solid #ddd' }}>
+
+					{/* MOSTRIAMO GLI ERRORI SE CE NE SONO */}
+					{errore && (
+						<div style={{ padding: '15px', backgroundColor: '#f8d7da', color: '#721c24', borderRadius: '5px', marginBottom: '20px', border: '1px solid #f5c6cb' }}>
+							<strong>⚠️ Attenzione:</strong> {errore}
+						</div>
+					)}
+
+					<input
+						type="text"
+						placeholder="🔍 Inizia a digitare un nome o un cognome..."
+						value={testoRicerca}
+						onChange={(e) => setTestoRicerca(e.target.value)}
+						style={{ width: '100%', padding: '12px', fontSize: '1.1em', marginBottom: '20px', borderRadius: '5px', border: '1px solid #ccc' }}
+					/>
+
+					{caricamento && !errore && <p style={{ color: '#007bff' }}>⏳ Caricamento giocatori in corso...</p>}
+
+					{!caricamento && (
+						<ul style={{ listStyleType: 'none', padding: 0 }}>
+							{giocatoriFiltrati.map(g => (
+								<li key={g.id} style={{ borderBottom: '1px solid #eee', backgroundColor: 'white', listStyleType: 'none' }}>
+									<a href={`/giocatori/${g.id}`} style={{ padding: '10px', display: 'flex', justifyContent: 'space-between', textDecoration: 'none', color: 'inherit' }}>
+										<strong>{g.nome} {g.cognome}</strong>
+										<span style={{ backgroundColor: '#007bff', color: 'white', padding: '3px 8px', borderRadius: '10px', fontSize: '0.8em' }}>
+											{g.ruolo ? g.ruolo : "Nessun ruolo"}
+										</span>
+									</a>
+								</li>
+							))}
+
+							{giocatoriFiltrati.length === 0 && giocatori.length > 0 && testoRicerca.trim() !== "" && (
+								<li style={{ color: '#dc3545', fontStyle: 'italic', padding: '10px' }}>Nessun giocatore trovato con questo nome.</li>
+							)}
+						</ul>
+					)}
+				</div>
+			);
+		}
+
+		const contenitore = document.getElementById('root-react');
+		const root = ReactDOM.createRoot(contenitore);
+		root.render(<AppRicerca />);
+		/*]]>*/
+	</script>
+
+	<div th:replace="~{fragments :: footer}"></div>
+</body>
+
+</html>

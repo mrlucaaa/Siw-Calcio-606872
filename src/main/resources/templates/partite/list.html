@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Elenco Partite</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+</head>
+<body>
+    <div th:replace="~{fragments :: header}"></div>
+
+    <h1>Tutte le Partite</h1>
+    
+    <div sec:authorize="hasRole('ADMIN')" style="text-align: center; margin-bottom: 20px;">
+        <a th:href="@{/partite/new}" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            + Aggiungi Nuova Partita
+        </a>
+    </div>
+    <div th:if="${partite.isEmpty()}">Non ci sono partite nel sistema</div>
+    
+	<ul style="list-style-type: none; padding: 0; max-width: 600px; margin: 0 auto;">
+        <li th:each="partita : ${partite}" style="padding: 12px; border-bottom: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center;">
+            
+            <div>
+                <a th:href="@{'/partite/' + ${partita.id}}" th:text="${partita.squadraCasa?.nome + ' - ' + partita.squadraTrasferta?.nome}" style="font-weight: bold; text-decoration: none; font-size: 1.1em;">Squadra 1 - Squadra 2</a>
+                <span th:if="${partita.stato.name() == 'GIOCATA'}" th:text="' (' + ${partita.goalsHome} + ' - ' + ${partita.goalsAway} + ')'" style="color: #28a745; font-weight: bold;">(Risultato)</span>
+            </div>
+            
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{'/partite/edit/' + ${partita.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.9em; margin-right: 5px; font-weight: bold;">
+                    ✏️ Gestisci
+                </a>
+                
+                <a th:href="@{'/partite/delete/' + ${partita.id}}" onclick="return confirm('Sei sicuro di voler annullare e cancellare questa partita?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
+                    🗑️ Elimina
+                </a>
+            </div>
+            
+        </li>
+    </ul>
+
+    <div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
