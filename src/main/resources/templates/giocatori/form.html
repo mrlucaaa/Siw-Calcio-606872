@@ -26,7 +26,11 @@
             <label>Ruolo:</label><br>
             <input required type="text" th:field="*{ruolo}" style="width: 100%; padding: 8px;"/>
         </div>
-        
+        <div style="margin-bottom: 15px;">
+			<label>Altezza</label><br>
+			<input required type="number" step="any" th:field="*{altezza}" style="width: 100%; padding: 8px;"/>
+		</div>
+		
         <div style="margin-bottom: 15px;">
             <label>Squadra di Appartenenza:</label><br>
             <select required th:field="*{squadra}" style="width: 100%; padding: 8px;">
@@ -36,7 +40,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 20px;">
-            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Salva Giocatore</button>
+            <button type="submit" style="padding: 10px 20px; background-color: black; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Salva Giocatore</button>
         </div>
     </form>
 

@@ -8,14 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
 
 import it.uniroma3.siw.model.Squadra;
 import it.uniroma3.siw.service.SquadraService;
+import it.uniroma3.siw.controller.validator.SquadraValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class SquadraController {
 
     private SquadraService squadraService;
+    
+    @Autowired
+    private SquadraValidator squadraValidator;
 
     public SquadraController(SquadraService squadraService) {
         this.squadraService = squadraService;
@@ -41,7 +48,11 @@ public class SquadraController {
     }
 
     @PostMapping("/squadre")
-    public String newSquadra(@ModelAttribute("squadra") Squadra squadra) {
+    public String newSquadra(@Valid @ModelAttribute("squadra") Squadra squadra, BindingResult bindingResult, Model model) {
+        this.squadraValidator.validate(squadra, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "squadre/form";
+        }
         this.squadraService.save(squadra);
         return "redirect:/squadre";
     }

@@ -8,7 +8,7 @@
 <body>
 
     <header th:fragment="header">
-        <div style="background-color: #f8f9fa; padding: 15px; border-bottom: 1px solid #ccc; margin-bottom: 20px; text-align: center; position: relative;">
+        <div style="background-color: whitesmoke; padding: 15px; border-bottom: 1px solid #ccc; margin-bottom: 20px; text-align: center; position: relative;">
             
             <div style="position: absolute; top: 15px; right: 20px; font-size: 1.1em;">
                 
@@ -17,13 +17,13 @@
                 </div>
 
                 <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; gap: 15px;">
-                    <span style="color: #333;">
-                        <strong sec:authentication="name" style="color: #007bff; text-transform: uppercase;">Utente</strong>
+                    <span style="color: black;">
+                        <strong sec:authentication="name" style="color: deepskyblue; text-transform: uppercase;">Utente</strong>
                     </span>
-                    
-                    <a th:href="@{/logout}" style="padding: 8px 15px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9em;">
-                        Esci
-                    </a>
+
+					<form th:action="@{/logout}" method="POST" style="display: inline;">
+					    <button type="submit" class="btn-esci">Esci</button>
+					</form>
                 </div>
                 
             </div>
@@ -35,14 +35,15 @@
             </div>
             
             <nav style="display: inline; font-size: 1.05em;">
-                <a th:href="@{/partite}" style="text-decoration: none; color: #333; margin: 0 5px;">Partite</a> | 
-                <a th:href="@{/squadre}" style="text-decoration: none; color: #333; margin: 0 5px;">Squadre</a> | 
-                <a th:href="@{/giocatori}" style="text-decoration: none; color: #333; margin: 0 5px;">Giocatori</a> | 
-                <a th:href="@{/arbitri}" style="text-decoration: none; color: #333; margin: 0 5px;">Arbitri</a> | 
-                <a th:href="@{/tornei}" style="text-decoration: none; color: #333; margin: 0 5px;">Tornei</a> | 
-                <a th:href="@{/commenti}" style="text-decoration: none; color: #333; margin: 0 5px;">Commenti</a> |
-                
-                <a th:href="@{/giocatori/ricerca}" style="color: #28a745; font-weight: bold; margin-left: 5px; text-decoration: none;">🔍 Cerca Giocatori</a>
+                <a th:href="@{/partite}" style="text-decoration: none; color:black; margin: 0 5px;">Partite</a> | 
+                <a th:href="@{/squadre}" style="text-decoration: none; color:black; margin: 0 5px;">Squadre</a> | 
+                <a th:href="@{/giocatori}" style="text-decoration: none; color:black; margin: 0 5px;">Giocatori</a> | 
+                <a th:href="@{/arbitri}" style="text-decoration: none; color:black; margin: 0 5px;">Arbitri</a> | 
+                <a th:href="@{/tornei}" style="text-decoration: none; color:black; margin: 0 5px;">Tornei</a> | 
+				<span sec:authorize="hasRole('ADMIN')">
+				        <a th:href="@{/commenti}" style="text-decoration: none; color: black; margin: 0 5px;">Commenti</a> |
+				    </span>
+                <a th:href="@{/giocatori/ricerca}" style="color: green; font-weight: bold; margin-left: 5px; text-decoration: none;">Cerca Giocatori</a>
             </nav>
             
         </div>

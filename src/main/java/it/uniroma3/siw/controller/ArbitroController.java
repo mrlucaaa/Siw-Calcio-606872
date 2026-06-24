@@ -34,15 +34,4 @@ public class ArbitroController {
         return "arbitri/list";
     }
     
-    @GetMapping("/arbitri/new")
-    public String formNewArbitro(Model model) {
-        model.addAttribute("arbitro", new Arbitro());
-        return "arbitri/form";
-    }
-
-    @PostMapping("/arbitri")
-    public String newArbitro(@ModelAttribute("arbitro") Arbitro arbitro) {
-        this.arbitroService.save(arbitro);
-        return "redirect:/arbitri";
-    }
 }

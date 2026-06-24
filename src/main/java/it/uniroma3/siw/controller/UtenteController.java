@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
 
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.service.UtenteService;
@@ -41,7 +43,10 @@ public class UtenteController {
     }
 
     @PostMapping("/utenti")
-    public String newUtente(@ModelAttribute("utente") Utente utente) {
+    public String newUtente(@Valid @ModelAttribute("utente") Utente utente, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "utenti/form";
+        }
         this.utenteService.save(utente);
         return "redirect:/utenti";
     }

@@ -5,16 +5,13 @@
     <div th:replace="~{fragments :: header-css}"></div>
 </head>
 <body>
-
+	
     <div th:replace="~{fragments :: header}"></div>
     
-    <h1>Benvenuto nel sistema SIW Calcio!</h1>
+    <h1>Benvenuto nel sistema SIW Calcio</h1>
     <p>Seleziona una voce dal menu in alto per iniziare a navigare.</p>
-
-    <div>
-        <p>Ultimi aggiornamenti del torneo in tempo reale.</p>
-    </div>
-
+	<span>numero totale partite</span>
+	<span th:text="${totalePartite}"></span>
     <div th:replace="~{fragments :: footer}"></div>
     
 </body>

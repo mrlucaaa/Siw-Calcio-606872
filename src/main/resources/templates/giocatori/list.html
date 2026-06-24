@@ -10,7 +10,7 @@
     <h1>Tutti i Giocatori</h1>
 	
 	<div sec:authorize="hasRole('ADMIN')" style="text-align: center; margin-bottom: 20px;">
-	    <a th:href="@{/giocatori/new}" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+	    <a th:href="@{/giocatori/new}" style="padding: 10px 20px; background-color: black; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
 	        + Aggiungi Nuovo Giocatore
 	    </a>
 	</div>
@@ -26,10 +26,7 @@
             
             <div sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/giocatori/edit/' + ${giocatore.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold; margin-right: 5px;">
-                    ✏️ Modifica
-                </a>
-                <a th:href="@{'/giocatori/delete/' + ${giocatore.id}}" onclick="return confirm('Vuoi eliminare questo giocatore?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
-                    🗑️ Elimina
+                    Modifica
                 </a>
             </div>
             

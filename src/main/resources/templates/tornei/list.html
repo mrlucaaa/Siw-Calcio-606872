@@ -10,7 +10,7 @@
     <h1>Tutti i Tornei</h1>
 	
 	<div sec:authorize="hasRole('ADMIN')" style="text-align: center; margin-bottom: 20px;">
-	    <a th:href="@{/tornei/new}" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+	    <a th:href="@{/tornei/new}" style="padding: 10px 20px; background-color: black; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
 	        + Aggiungi Nuovo Torneo
 	    </a>
 	</div>
@@ -25,10 +25,10 @@
             
             <div sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/tornei/edit/' + ${torneo.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold; margin-right: 5px;">
-                    ✏️ Modifica
+                    Modifica
                 </a>
-                <a th:href="@{'/tornei/delete/' + ${torneo.id}}" onclick="return confirm('Eliminare questo torneo e la sua classifica?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
-                    🗑️ Elimina
+                <a th:href="@{'/tornei/delete/' + ${torneo.id}}" onclick="return confirm('Eliminare questo torneo e la sua classifica?');" style="padding: 5px 10px; background-color:red; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
+                    Elimina
                 </a>
             </div>
             

@@ -42,11 +42,6 @@ public class CommentoController {
     private UtenteRepository utenteRepository; 
 
 
-    @GetMapping("/commenti/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("commento", this.commentoRepository.findById(id).orElse(null));
-        return "commenti/show";
-    }
 
     @GetMapping("/commenti")
     public String list(Model model) {
@@ -55,20 +50,6 @@ public class CommentoController {
         return "commenti/list";
     }
     
-    @GetMapping("/commenti/new")
-    public String formNewCommento(Model model) {
-        model.addAttribute("commento", new Commento());
-        model.addAttribute("utenti", this.utenteService.findAll());
-        model.addAttribute("partite", this.partitaService.findAll());
-        
-        return "commenti/form";
-    }
-
-    @PostMapping("/commenti")
-    public String newCommento(@ModelAttribute("commento") Commento commento) {
-        this.commentoService.save(commento);
-        return "redirect:/commenti";
-    }
     
 
     @PostMapping("/commenti/new")

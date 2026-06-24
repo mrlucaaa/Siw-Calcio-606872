@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
 
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.model.RuoloUtente;
@@ -33,7 +35,23 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("utente") Utente utente) {
+    public String registerUser(@Valid @ModelAttribute("utente") Utente utente, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+        // Controlla se l'username esiste già
+        try {
+            Utente existingUser = utenteService.findByUsername(utente.getUsername());
+            if (existingUser != null) {
+                model.addAttribute("error", "Username già in uso");
+                return "register";
+            }
+        } catch (Exception e) {
+            // Se lancia un'eccezione (es. NonUniqueResultException) significa che esiste già
+            model.addAttribute("error", "Username già in uso");
+            return "register";
+        }
+
         // Cifra la password prima di salvarla
         utente.setPassword(passwordEncoder.encode(utente.getPassword()));
         

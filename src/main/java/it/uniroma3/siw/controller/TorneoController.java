@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
 
 import it.uniroma3.siw.model.Torneo;
 import it.uniroma3.siw.service.TorneoService;
@@ -45,7 +47,10 @@ public class TorneoController {
     }
 
     @PostMapping("/tornei")
-    public String newTorneo(@ModelAttribute("torneo") Torneo torneo) {
+    public String newTorneo(@Valid @ModelAttribute("torneo") Torneo torneo, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "tornei/form";
+        }
         this.torneoService.save(torneo);
         return "redirect:/tornei";
     }

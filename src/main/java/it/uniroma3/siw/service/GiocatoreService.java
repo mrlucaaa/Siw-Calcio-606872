@@ -31,4 +31,5 @@ public class GiocatoreService {
 	public void deleteById(Long id) {
 		this.giocatoreRepository.deleteById(id);
 	}
+	
 }

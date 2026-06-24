@@ -10,7 +10,7 @@
     <h1>Tutti gli Utenti</h1>
 	
 	<div sec:authorize="hasRole('ADMIN')" style="text-align: center; margin-bottom: 20px;">
-	    <a th:href="@{/utenti/new}" style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
+	    <a th:href="@{/utenti/new}" style="padding: 10px 20px; background-color: black; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
 	        + Aggiungi Nuovo Utente
 	    </a>
 	</div>
@@ -23,10 +23,10 @@
             </div>
             <div sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/utenti/edit/' + ${utente.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold; margin-right: 5px;">
-                    ✏️ Modifica
+                    Modifica
                 </a>
-                <a th:href="@{'/utenti/delete/' + ${utente.id}}" onclick="return confirm('Sei sicuro?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
-                    🗑️ Elimina
+                <a th:href="@{'/utenti/delete/' + ${utente.id}}" onclick="return confirm('Sei sicuro?');" style="padding: 5px 10px; background-color: black; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
+                  ️ Elimina
                 </a>
             </div>
         </li>

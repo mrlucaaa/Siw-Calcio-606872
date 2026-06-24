@@ -24,6 +24,10 @@ public class SquadraService {
 		return squadraRepository.findAll();
 	}
 	
+	public boolean existsByNome(String nome) {
+		return squadraRepository.existsByNome(nome);
+	}
+	
 	public void save(Squadra squadra) {
         this.squadraRepository.save(squadra);
     }

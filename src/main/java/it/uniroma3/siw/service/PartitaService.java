@@ -29,4 +29,8 @@ public class PartitaService {
 	public void deleteById(Long id) {
         this.partitaRepository.deleteById(id);
     }
+	
+	public Long count() {
+		return this.partitaRepository.count();
+	}
 }

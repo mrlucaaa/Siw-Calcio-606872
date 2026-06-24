@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.UtenteRepository;
-
+// questa classe serve ad insegnare a spring boot come leggere gli utenti nel database
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

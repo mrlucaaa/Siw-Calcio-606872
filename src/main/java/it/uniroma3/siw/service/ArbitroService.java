@@ -24,7 +24,4 @@ public class ArbitroService {
 		return arbitroRepository.findAll();
 	}
 	
-	public void save(Arbitro arbitro) {
-		this.arbitroRepository.save(arbitro);
-	}
 }

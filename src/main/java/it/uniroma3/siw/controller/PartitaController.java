@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import jakarta.validation.Valid;
 
 import it.uniroma3.siw.model.Partita;
 import it.uniroma3.siw.service.PartitaService;
@@ -51,7 +53,12 @@ public class PartitaController {
     }
 
     @PostMapping("/partite")
-    public String newPartita(@ModelAttribute("partita") Partita partita) {
+    public String newPartita(@Valid @ModelAttribute("partita") Partita partita, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("squadre", this.squadraService.findAll()); 
+            model.addAttribute("tornei", this.torneoService.findAll());
+            return "partite/form";
+        }
         this.partitaService.save(partita);
         return "redirect:/partite";
     }

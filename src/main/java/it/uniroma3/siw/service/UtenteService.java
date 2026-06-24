@@ -24,6 +24,10 @@ public class UtenteService {
 		return utenteRepository.findAll();
 	}
 	
+	public Utente findByUsername(String username) {
+		return utenteRepository.findByUsername(username);
+	}
+	
 	public void save(Utente utente) {
 		this.utenteRepository.save(utente);
 	}

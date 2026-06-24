@@ -9,7 +9,7 @@
 
     <div th:if="${squadra}" style="max-width: 800px; margin: 40px auto; text-align: center;">
         
-        <h1 th:text="${squadra.nome}" style="color: #007bff;">Nome Squadra</h1>
+        <h1 th:text="${squadra.nome}" style="color: black;">Nome Squadra</h1>
         
         <div sec:authorize="hasRole('ADMIN')" style="margin-bottom: 20px;">
             <a th:href="@{'/squadre/edit/' + ${squadra.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-weight: bold;">✏️ Modifica Squadra</a>
@@ -37,28 +37,7 @@
                         <span th:text="${g.ruolo}" style="color: #666; font-size: 0.9em; float: right;">Ruolo</span>
                     </li>
                 </ul>
-            </div>
-
-            <div style="flex: 1; min-width: 300px; background-color: #f0f8ff; padding: 20px; border-radius: 8px; border: 1px solid #bce8f1;">
-                <h2 style="margin-top: 0; text-align: center; color: #31708f;">Rendimento Totale</h2>
-                
-                <div style="text-align: center; font-size: 1.2em; line-height: 2;">
-                    <div><strong>Gol Fatti ⚽ :</strong> <span th:text="${totaleGolFatti != null ? totaleGolFatti : 0}" style="color: #28a745; font-weight: bold; font-size: 1.5em;">0</span></div>
-                    <div><strong>Gol Subiti 🥅 :</strong> <span th:text="${totaleGolSubiti != null ? totaleGolSubiti : 0}" style="color: #dc3545; font-weight: bold; font-size: 1.5em;">0</span></div>
-                    
-                    <hr style="border-top: 1px dotted #ccc; margin: 15px 0;">
-                    
-                    <h4 style="margin-bottom: 10px;">Partite Giocate:</h4>
-                    <ul th:if="${partite != null && !partite.isEmpty()}" style="padding: 0; list-style-type: none; font-size: 0.9em;">
-                        <li th:each="p : ${partite}" style="margin-bottom: 5px;">
-                            <a th:href="@{'/partite/' + ${p.id}}" style="text-decoration: none; color: #007bff;">
-                                <span th:text="${p.squadraCasa.nome}">Casa</span> <span th:text="${p.goalsHome}">0</span> - <span th:text="${p.goalsAway}">0</span> <span th:text="${p.squadraTrasferta.nome}">Trasferta</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div th:if="${partite == null || partite.isEmpty()}" style="font-size: 0.8em; color: #666;">
-                        Nessuna partita giocata.
-                    </div>
+           
                 </div>
             </div>
 

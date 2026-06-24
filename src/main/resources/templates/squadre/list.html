@@ -23,11 +23,11 @@
             
             <div sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/squadre/edit/' + ${squadra.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.9em; margin-right: 5px; font-weight: bold;">
-                    ✏️ Modifica
+                    Modifica
                 </a>
                 
-                <a th:href="@{'/squadre/delete/' + ${squadra.id}}" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');" style="padding: 5px 10px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
-                    🗑️ Elimina
+                <a th:href="@{'/squadre/delete/' + ${squadra.id}}" onclick="return confirm('Sei sicuro di voler eliminare questa squadra?');" style="padding: 5px 10px; background-color: red; color: white; text-decoration: none; border-radius: 3px; font-size: 0.9em; font-weight: bold;">
+                    Elimina
                 </a>
             </div>
             

@@ -36,7 +36,7 @@
         <ul style="list-style-type: none; padding: 0; margin-bottom: 20px;">
             <li th:each="c : ${partita.commenti}" style="padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
                 <div style="text-align: left;">
-                    <strong th:text="${c.autore?.username}" style="color: #007bff;">Autore</strong>: 
+                    <strong th:text="${c.autore?.username}" style="color: black;">Autore</strong>: 
                     <span th:text="${c.testo}">Testo commento</span>
                 </div>
                 
@@ -44,14 +44,14 @@
                     <a th:if="${#authorization.expression('hasRole(''ADMIN'')')} or (${#authentication.name} == ${c.autore?.username})"
                        th:href="@{'/commenti/edit/' + ${c.id}}" 
                        style="padding: 3px 8px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.85em; font-weight: bold; margin-right: 5px;">
-                        ✏️ Modifica
+                        Modifica
                     </a>
 
                     <a th:if="${#authorization.expression('hasRole(''ADMIN'')')} or (${#authentication.name} == ${c.autore?.username})"
                        th:href="@{'/commenti/delete/' + ${c.id}}" 
                        onclick="return confirm('Sei sicuro di voler eliminare questo commento?');" 
                        style="padding: 3px 8px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 3px; font-size: 0.85em; font-weight: bold;">
-                        🗑️ Elimina
+                        Elimina
                     </a>
                 </div>
             </li>
@@ -61,7 +61,7 @@
             <h4 style="margin-top: 0;">Lascia un commento</h4>
             <form th:action="@{/commenti/new}" method="POST">
                 <input type="hidden" name="partita_id" th:value="${partita.id}" /> 
-                <textarea name="testo" rows="3" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Cosa ne pensi del match?" required></textarea>
+                <textarea name="testo" rows="3" style="width: 95%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Cosa ne pensi del match?" required></textarea>
                 <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Invia Commento</button>
             </form>
         </div>
@@ -73,7 +73,7 @@
     </div>
     
     <div th:unless="${partita}" style="text-align: center; margin-top: 20px; color: red; font-weight: bold;">
-        Partita non trovata!
+        Partita non trovata
     </div>
     
     <div th:replace="~{fragments :: footer}"></div>
