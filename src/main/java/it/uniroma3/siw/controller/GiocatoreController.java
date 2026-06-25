@@ -25,7 +25,7 @@ public class GiocatoreController {
 
     @GetMapping("/giocatori/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("giocatore", this.giocatoreService.findById(id).orElse(null));
+        model.addAttribute("giocatore", this.giocatoreService.findById(id));
         return "giocatori/show";
     }
 
@@ -54,11 +54,6 @@ public class GiocatoreController {
         model.addAttribute("giocatore", this.giocatoreService.findById(id));
         model.addAttribute("squadre", this.squadraService.findAll());
         return "giocatori/form";
-    }
-    
-    @GetMapping("/giocatori/ricerca")
-    public String apriPaginaRicerca() {
-        return "giocatori/ricerca"; 
     }
     
     @GetMapping("/giocatori/delete/{id}")

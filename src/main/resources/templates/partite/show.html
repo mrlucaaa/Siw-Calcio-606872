@@ -12,9 +12,7 @@
         
         <h1 th:text="${partita.squadraCasa?.nome + ' vs ' + partita.squadraTrasferta?.nome}">Squadra 1 vs Squadra 2</h1>
         
-        <div sec:authorize="hasRole('ADMIN')" style="margin-bottom: 20px;">
-            <a th:href="@{'/partite/edit/' + ${partita.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-weight: bold;">✏️ Modifica Dettagli</a>
-        </div>
+
         
         <div style="font-size: 1.1em; line-height: 2; text-align: left; max-width: 400px; margin: 0 auto;">
             <div th:if="${partita.torneo != null}">
@@ -41,12 +39,7 @@
                 </div>
                 
                 <div style="white-space: nowrap;">
-                    <a th:if="${#authorization.expression('hasRole(''ADMIN'')')} or (${#authentication.name} == ${c.autore?.username})"
-                       th:href="@{'/commenti/edit/' + ${c.id}}" 
-                       style="padding: 3px 8px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-size: 0.85em; font-weight: bold; margin-right: 5px;">
-                        Modifica
-                    </a>
-
+                   
                     <a th:if="${#authorization.expression('hasRole(''ADMIN'')')} or (${#authentication.name} == ${c.autore?.username})"
                        th:href="@{'/commenti/delete/' + ${c.id}}" 
                        onclick="return confirm('Sei sicuro di voler eliminare questo commento?');" 

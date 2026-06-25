@@ -63,13 +63,6 @@ public class PartitaController {
         return "redirect:/partite";
     }
     
-    @GetMapping("/partite/edit/{id}")
-    public String editPartita(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("partita", this.partitaService.findById(id));
-        model.addAttribute("squadre", this.squadraService.findAll()); 
-        model.addAttribute("tornei", this.torneoService.findAll());
-        return "partite/form";
-    }
 
     @GetMapping("/partite/delete/{id}")
     public String deletePartita(@PathVariable("id") Long id) {

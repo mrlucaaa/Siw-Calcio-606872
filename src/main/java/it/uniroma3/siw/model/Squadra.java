@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,12 +18,15 @@ public class Squadra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String nome;
 	private int annoDiFondazione;
 	private String città;
 	@ManyToMany
+	@com.fasterxml.jackson.annotation.JsonIgnore
 	private List<Torneo> tornei;
 	@OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL)
+	@com.fasterxml.jackson.annotation.JsonIgnore
     private List<Giocatore> giocatori;
 	
 	public String getNome() {

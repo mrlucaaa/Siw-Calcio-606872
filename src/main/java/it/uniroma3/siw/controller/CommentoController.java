@@ -63,10 +63,12 @@ public class CommentoController {
         commento.setTesto(testo);
         commento.setPartita(partita);
 
-        // --- MAGIA SPRING SECURITY PER L'AUTORE ---
+        //vedo chi sta navigando il sito
         Object principal = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         
+        //vedo se chi sta navigando è registrato
         if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
+        	//se è registrato prendo l'username
             String username = ((org.springframework.security.core.userdetails.UserDetails) principal).getUsername();
             it.uniroma3.siw.model.Utente autore = this.utenteRepository.findByUsername(username);
             commento.setAutore(autore);
@@ -98,7 +100,7 @@ public class CommentoController {
             if (isAdmin || currentUsername.equals(commento.getAutore().getUsername())) {
                 this.commentoRepository.delete(commento);
             } else {
-                return "redirect:/login?error=unauthorized"; // Blocco di sicurezza
+                return "redirect:/login?error=unauthorized";
             }
             
             return "redirect:/partite/" + partitaId;

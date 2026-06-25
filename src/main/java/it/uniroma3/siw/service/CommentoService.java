@@ -1,11 +1,13 @@
 package it.uniroma3.siw.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Commento;
 import it.uniroma3.siw.repository.CommentoRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class CommentoService {
 	private CommentoRepository commentoRepository;
 	
@@ -22,6 +24,7 @@ public class CommentoService {
 		return commentoRepository.findAll();
 	}
 	
+	@Transactional
 	public void save(Commento commento) {
         this.commentoRepository.save(commento);
     }

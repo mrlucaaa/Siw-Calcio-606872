@@ -13,16 +13,12 @@ import jakarta.validation.Valid;
 
 import it.uniroma3.siw.model.Squadra;
 import it.uniroma3.siw.service.SquadraService;
-import it.uniroma3.siw.controller.validator.SquadraValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import it.uniroma3.siw.exception.DuplicateSquadraException;
 
 @Controller
 public class SquadraController {
 
     private SquadraService squadraService;
-    
-    @Autowired
-    private SquadraValidator squadraValidator;
 
     public SquadraController(SquadraService squadraService) {
         this.squadraService = squadraService;
@@ -30,7 +26,7 @@ public class SquadraController {
 
     @GetMapping("/squadre/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
-    	model.addAttribute("squadra", this.squadraService.findById(id).orElse(null));
+    	model.addAttribute("squadra", this.squadraService.findById(id));
         return "squadre/show";
     }
 
@@ -49,18 +45,36 @@ public class SquadraController {
 
     @PostMapping("/squadre")
     public String newSquadra(@Valid @ModelAttribute("squadra") Squadra squadra, BindingResult bindingResult, Model model) {
-        this.squadraValidator.validate(squadra, bindingResult);
         if (bindingResult.hasErrors()) {
             return "squadre/form";
         }
-        this.squadraService.save(squadra);
-        return "redirect:/squadre";
+        try {
+            this.squadraService.save(squadra);
+            return "redirect:/squadre";
+        } catch (DuplicateSquadraException e) {
+            bindingResult.reject("squadra.duplicate");
+            return "squadre/form";
+        }
     }
     
     @GetMapping("/squadre/edit/{id}")
     public String editSquadra(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("squadra", this.squadraService.findById(id).orElse(null));
-        return "squadre/form";
+        model.addAttribute("squadra", this.squadraService.findById(id));
+        return "squadre/edit";
+    }
+    
+    @PostMapping("/squadre/edit/{id}")
+    public String editSquadraPost(@Valid @ModelAttribute("squadra") Squadra squadra, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "squadre/edit";
+        }
+        try {
+            this.squadraService.update(squadra);
+            return "redirect:/squadre";
+        } catch (DuplicateSquadraException e) {
+            bindingResult.reject("squadra.duplicate");
+            return "squadre/edit";
+        }
     }
     
     @GetMapping("/squadre/delete/{id}")

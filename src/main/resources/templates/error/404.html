@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SiwCalcio - Pagina Non Trovata</title>
+    <div th:replace="~{fragments :: header-css}"></div>
+    <style>
+        .error-container {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+        }
+        .error-code {
+            font-size: 100px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+        .error-message {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+	
+    <div th:replace="~{fragments :: header}"></div>
+    
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Oops! La pagina che stai cercando non esiste.</div>
+        
+        <p th:if="${messaggioErrore}">
+            Dettaglio: <span style="font-weight: bold; color: #d9534f;" th:text="#{__${messaggioErrore}__}">Errore specifico</span>
+        </p>
+        
+        <p>Potresti aver digitato male l'indirizzo o la pagina potrebbe essere stata rimossa.</p>
+        <br>
+        <a href="/" style="padding: 10px 20px; background-color: #333; color: white; text-decoration: none; border-radius: 5px;">Torna alla Home</a>
+    </div>
+    
+    <div th:replace="~{fragments :: footer}"></div>
+    
+</body>
+</html>

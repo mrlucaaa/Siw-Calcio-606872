@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +17,9 @@ public class Arbitro {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private Long codiceArbitrale;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
 	@OneToMany(mappedBy = "arbitro")
 	private List<Partita> partiteDirette;

@@ -9,7 +9,6 @@ public class SiwCalcioApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiwCalcioApplication.class, args);
-		
 	}
 
 }

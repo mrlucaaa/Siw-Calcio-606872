@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,17 +21,23 @@ public class Partita {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private LocalDateTime dataOra;
+	@NotBlank
 	private String luogo;
 	@ManyToOne
+	@NotNull
 	private Torneo torneo;
 	@ManyToOne
+	@NotNull
 	private Arbitro arbitro;
 	@ManyToOne
+	@NotNull
 	private Squadra squadraCasa;
 	@ManyToOne
+	@NotNull
 	private Squadra squadraTrasferta;
 	private Long goalsHome;
 	private Long goalsAway;
+	@jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)
 	private StatoPartita stato;
 	@OneToMany(mappedBy = "partita", cascade = CascadeType.ALL)
     private List<Commento> commenti;

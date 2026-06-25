@@ -3,11 +3,13 @@ package it.uniroma3.siw.service;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.siw.model.Arbitro;
 import it.uniroma3.siw.repository.ArbitroRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class ArbitroService {
 	private ArbitroRepository arbitroRepository;
 	
@@ -23,5 +25,4 @@ public class ArbitroService {
 	public Iterable<Arbitro> findAll(){
 		return arbitroRepository.findAll();
 	}
-	
 }

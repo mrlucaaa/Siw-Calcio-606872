@@ -17,6 +17,7 @@ import it.uniroma3.siw.model.Torneo;
 import it.uniroma3.siw.repository.TorneoRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class TorneoService {
     private TorneoRepository torneoRepository;
     
@@ -118,4 +119,6 @@ public class TorneoService {
         
         System.out.println("===========================================================");
     }
+    
+ 
 }

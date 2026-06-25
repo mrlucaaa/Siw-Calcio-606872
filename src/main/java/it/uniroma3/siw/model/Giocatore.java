@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,13 +18,16 @@ public class Giocatore {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private Long numeroTessera;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
 	private LocalDate dataDiNascita;
 	private double altezza;
+	@NotBlank
 	private String ruolo;
 	@ManyToOne
-	@com.fasterxml.jackson.annotation.JsonIgnore
+	@NotNull
 	private Squadra squadra;
 	
 	

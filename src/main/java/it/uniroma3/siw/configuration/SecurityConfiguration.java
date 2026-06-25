@@ -19,7 +19,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authorize -> authorize
                 // 1. File statici e pagina di ERRORE accessibili a chiunque
                 .requestMatchers("/css/**", "/js/**", "/react/**", "/images/**", "/favicon.ico", "/error").permitAll()
-                .requestMatchers("/commenti/**").hasRole("ADMIN")
+
                 // 2. ROTTE ADMIN (Creazione, modifica ed eliminazione riservate all'amministratore)
                 .requestMatchers("/tornei/new", "/tornei/edit/**", "/tornei/delete/**").hasRole("ADMIN")
                 .requestMatchers("/squadre/new", "/squadre/edit/**", "/squadre/delete/**").hasRole("ADMIN")

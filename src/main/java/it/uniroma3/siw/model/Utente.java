@@ -3,6 +3,8 @@ package it.uniroma3.siw.model;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -14,9 +16,12 @@ public class Utente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String username;
+	@NotBlank
 	private String password;
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private RuoloUtente ruolo;
 	
 	

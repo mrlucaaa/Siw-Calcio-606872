@@ -10,10 +10,6 @@
     <div th:if="${squadra}" style="max-width: 800px; margin: 40px auto; text-align: center;">
         
         <h1 th:text="${squadra.nome}" style="color: black;">Nome Squadra</h1>
-        
-        <div sec:authorize="hasRole('ADMIN')" style="margin-bottom: 20px;">
-            <a th:href="@{'/squadre/edit/' + ${squadra.id}}" style="padding: 5px 10px; background-color: #ffc107; color: black; text-decoration: none; border-radius: 3px; font-weight: bold;">✏️ Modifica Squadra</a>
-        </div>
 
         <div style="font-size: 1.1em; color: #555;">
             <div style="margin-bottom: 8px;"><strong>Città:</strong> <span th:text="${squadra.città}">Roma</span></div>

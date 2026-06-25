@@ -3,6 +3,8 @@ package it.uniroma3.siw.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,13 +15,17 @@ public class Commento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String testo;
 	private LocalDateTime dataOra;
 	@ManyToOne
+	@NotNull
 	private Utente autore;
 	@ManyToOne
+	@NotNull
 	private Partita partitaRiferimento;
 	@ManyToOne
+	@NotNull
     private Partita partita;
 	
 	public String getTesto() {
